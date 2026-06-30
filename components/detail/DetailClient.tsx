@@ -32,25 +32,39 @@ export default function DetailClient({ mediaType, detail, backdrop, trailer }: D
 
   return (
     <div className="relative min-h-screen">
-      {/* ── Fixed cinematic backdrop ─────────────────────────── */}
-      {backdrop && (
-        <div className="fixed inset-0 -z-10" aria-hidden style={{ height: "100vh" }}>
-          <Image
-            src={backdrop}
-            alt={title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center scale-[1.06]"
+      {/* ── Cinematic backdrop ───────────────────────────────── */}
+      {/*
+        overflow:hidden on the outer div clips blur-edge artifacts.
+        The inner div is inset by -6% so the blurred image fills wall-to-wall.
+        brightness(0.52) + saturate(0.65) = colorful but subdued (not black).
+      */}
+      <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden>
+        {backdrop && (
+          <div
+            className="absolute inset-0"
             style={{
-              filter: "blur(22px) brightness(0.28) saturate(0.45)",
+              inset: "-6%",
+              filter: "blur(32px) brightness(0.52) saturate(0.65)",
             }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/55 to-black/15" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
-        </div>
-      )}
+          >
+            <Image
+              src={backdrop}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        )}
+        {/* Left-side darkening so text column stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/88 via-black/45 to-black/10" />
+        {/* Bottom-to-top: page transitions to true black as you scroll */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+        {/* Top fade under nav */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/55 to-transparent" />
+      </div>
+      {/* Page background below the fixed layer */}
       <div className="fixed inset-0 -z-20 bg-black" aria-hidden />
 
       {/* ── Main 3-column grid ──────────────────────────────── */}

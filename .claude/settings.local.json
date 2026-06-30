@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-eslint --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npx create-next-app@latest /tmp/claude-1000/-mnt-c-Users-samay-claude-moviedb/32f3d5f3-0a0f-46d3-8644-48a808db31d7/scratchpad/nextapp --typescript --tailwind --app --no-eslint --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(mkdir -p /tmp/vylastream)",
+      "Read(//tmp/**)",
+      "Bash(npm --version)",
+      "Bash(curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh)",
+      "Bash(bash)",
+      "Bash(python3 skills/ui-ux-pro-max/scripts/search.py \"dark cinematic streaming entertainment video black white\" --design-system -p \"Vyla Stream\")",
+      "Bash(npm install *)"
+    ]
+  }
+}

@@ -297,27 +297,6 @@ export default function DetailHeader({ mediaType, detail, onWatch }: DetailHeade
           Watch
         </motion.button>
 
-        <motion.a
-          href={`/api/vyla/extras?kind=downloads&type=${mediaType}&id=${detail.id}`}
-          className="flex items-center gap-2.5 rounded-full border border-white/20 bg-white/8 px-6 py-2.5
-            text-sm font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-          whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.13)" }}
-          whileTap={{ scale: 0.96 }}
-          transition={{ type: "spring", stiffness: 420, damping: 22 }}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-3.5 w-3.5"
-          >
-            <path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
-          </svg>
-          Download
-        </motion.a>
       </motion.div>
 
       {/* Streaming providers */}

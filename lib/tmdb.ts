@@ -104,6 +104,21 @@ export interface Episode {
   runtime: number | null;
 }
 
+export interface Review {
+  id: string;
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string | null;
+    rating: number | null;
+  };
+  content: string;
+  created_at: string;
+  updated_at: string;
+  url: string;
+}
+
 export interface MovieDetail extends TmdbListItem {
   title: string;
   runtime: number | null;
@@ -112,6 +127,7 @@ export interface MovieDetail extends TmdbListItem {
   credits?: { cast: CastMember[]; crew: CrewMember[] };
   images?: { logos: ImageAsset[]; backdrops: ImageAsset[] };
   videos?: { results: Video[] };
+  reviews?: { results: Review[] };
   "watch/providers"?: { results: Record<string, WatchProviderRegion> };
 }
 
@@ -129,6 +145,7 @@ export interface TvDetail extends TmdbListItem {
   credits?: { cast: CastMember[]; crew: CrewMember[] };
   images?: { logos: ImageAsset[]; backdrops: ImageAsset[] };
   videos?: { results: Video[] };
+  reviews?: { results: Review[] };
   "watch/providers"?: { results: Record<string, WatchProviderRegion> };
 }
 

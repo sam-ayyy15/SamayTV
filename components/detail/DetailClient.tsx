@@ -8,6 +8,7 @@ import DetailHeader from "@/components/detail/DetailHeader";
 import CastList from "@/components/detail/CastList";
 import SeasonsAccordion from "@/components/detail/SeasonsAccordion";
 import TrailerEmbed from "@/components/detail/TrailerEmbed";
+import ReviewsSection from "@/components/detail/ReviewsSection";
 import Player from "@/components/player/Player";
 import RatingRing from "@/components/cards/RatingRing";
 import { tmdbImage } from "@/lib/tmdb";
@@ -40,8 +41,10 @@ export default function DetailClient({ mediaType, detail, backdrop, trailer }: D
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
-            style={{ filter: "brightness(0.4) saturate(1.05)" }}
+            className="object-cover object-center scale-[1.06]"
+            style={{
+              filter: "blur(22px) brightness(0.28) saturate(0.45)",
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/55 to-black/15" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
@@ -145,6 +148,11 @@ export default function DetailClient({ mediaType, detail, backdrop, trailer }: D
           <div className="mt-10 max-w-3xl">
             <TrailerEmbed trailer={trailer} />
           </div>
+
+          {/* Reviews */}
+          <ReviewsSection
+            reviews={detail.reviews?.results ?? []}
+          />
 
           {/* Seasons (TV) */}
           {mediaType === "tv" && (

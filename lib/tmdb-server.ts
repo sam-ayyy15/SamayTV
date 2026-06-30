@@ -46,11 +46,11 @@ export const tmdbServer = {
     ),
   movieDetail: (id: string | number) =>
     fetchServer<MovieDetail>(`movie/${id}`, {
-      append_to_response: "credits,images,videos,watch/providers,release_dates",
+      append_to_response: "credits,images,videos,watch/providers,release_dates,reviews",
     }),
   tvDetail: (id: string | number) =>
     fetchServer<TvDetail>(`tv/${id}`, {
-      append_to_response: "credits,images,videos,watch/providers,content_ratings",
+      append_to_response: "credits,images,videos,watch/providers,content_ratings,reviews",
     }),
   tvSeason: (id: string | number, season: number) =>
     fetchServer<{ episodes: import("@/lib/tmdb").Episode[] }>(

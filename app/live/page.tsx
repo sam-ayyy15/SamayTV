@@ -91,7 +91,7 @@ export default function LivePage() {
         </div>
         <div className="mt-2 flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-          <span className="text-xs text-white/40">Live • Free • No account required</span>
+          <span className="text-xs text-white/40">Live Tv Channels</span>
         </div>
       </motion.div>
 

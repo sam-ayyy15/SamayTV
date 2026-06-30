@@ -1,9 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { tmdbServer } from "@/lib/tmdb-server";
 import { pickTrailer, tmdbImage } from "@/lib/tmdb";
 import DetailClient from "@/components/detail/DetailClient";
-import TrailerEmbed from "@/components/detail/TrailerEmbed";
 
 export const revalidate = 300;
 
@@ -14,7 +12,6 @@ export default async function MovieDetailPage({
 }) {
   const { id } = await params;
 
-  // Guard: id must be a non-empty numeric string
   if (!id || !/^\d+$/.test(id)) {
     return <DetailError message="Invalid movie ID." />;
   }
@@ -33,51 +30,20 @@ export default async function MovieDetailPage({
   const trailer = pickTrailer(detail.videos?.results);
 
   return (
-    <main className="relative pb-20">
-      {backdrop && (
-        <div className="absolute inset-x-0 top-0 h-[70vh] -z-10 overflow-hidden">
-          <Image
-            src={backdrop}
-            alt={detail.title}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover backdrop-image"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
-          <div className="absolute inset-0 vignette" />
-        </div>
-      )}
-
-      <DetailClient mediaType="movie" detail={detail} />
-
-      <div className="px-[clamp(20px,4vw,56px)]">
-        {detail.overview && (
-          <section className="max-w-2xl py-8">
-            <div className="mb-4">
-              <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-text-secondary">
-                Synopsis
-              </p>
-              <h2 className="section-title font-sans text-base font-semibold uppercase tracking-[0.08em] text-white">
-                Overview
-              </h2>
-            </div>
-            <p className="text-sm leading-[1.8] text-text-secondary">{detail.overview}</p>
-          </section>
-        )}
-        <TrailerEmbed trailer={trailer} />
-      </div>
+    <main>
+      <DetailClient
+        mediaType="movie"
+        detail={detail}
+        backdrop={backdrop}
+        trailer={trailer}
+      />
     </main>
   );
 }
 
 function DetailError({ message }: { message: string }) {
-  // Classify the error for a friendlier message
-  const isNotFound =
-    message.includes("404") || message.includes("not found");
-  const isRateLimit =
-    message.includes("429") || message.includes("rate limit");
+  const isNotFound = message.includes("404") || message.includes("not found");
+  const isRateLimit = message.includes("429") || message.includes("rate limit");
   const isMissingKey = message.includes("TMDB_API_KEY");
 
   const heading = isNotFound

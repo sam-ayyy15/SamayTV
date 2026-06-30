@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import PillNav from "@/components/nav/PillNav";
 import SearchBar from "@/components/nav/SearchBar";
@@ -17,6 +18,8 @@ const navVariants = {
 };
 
 export default function TopNav() {
+  const pathname = usePathname();
+  const onSearchPage = pathname === "/search";
   const [searchFocused, setSearchFocused] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -65,22 +68,24 @@ export default function TopNav() {
           </Link>
         </motion.div>
 
-        {/* ── Search bar — expands into the spacer on focus ── */}
-        <motion.div
-          layout
-          transition={{ type: "spring", stiffness: 320, damping: 32 }}
-          className={searchFocused ? "flex-1" : "w-[260px] shrink-0"}
-        >
-          <SearchBar
-            focused={searchFocused}
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setSearchFocused(false)}
-          />
-        </motion.div>
+        {/* ── Search bar — hidden on /search (that page has its own) ── */}
+        {!onSearchPage && (
+          <motion.div
+            layout
+            transition={{ type: "spring", stiffness: 320, damping: 32 }}
+            className={searchFocused ? "flex-1" : "w-[260px] shrink-0"}
+          >
+            <SearchBar
+              focused={searchFocused}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setSearchFocused(false)}
+            />
+          </motion.div>
+        )}
 
-        {/* Spacer — collapses when search is focused */}
+        {/* Spacer — collapses when search is focused; always on /search */}
         <AnimatePresence initial={false}>
-          {!searchFocused && (
+          {(!searchFocused || onSearchPage) && (
             <motion.div
               key="spacer"
               className="flex-1"
@@ -94,7 +99,7 @@ export default function TopNav() {
 
         {/* ── Right-side items — fade out when search expands ── */}
         <AnimatePresence initial={false}>
-          {!searchFocused && (
+          {(!searchFocused || onSearchPage) && (
             <motion.div
               key="right-items"
               className="flex items-center gap-2 shrink-0"

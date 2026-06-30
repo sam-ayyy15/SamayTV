@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import TopNav from "@/components/nav/TopNav";
+import Footer from "@/components/ui/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +34,11 @@ export default function RootLayout({
       <body className="bg-bg text-text-primary min-h-screen antialiased selection:bg-white/20 selection:text-white">
         <Providers>
           <TopNav />
-          {children}
+          {/* pb-40 ensures hover-expanded cards near the bottom never overlap the footer */}
+          <div className="pb-40">
+            {children}
+          </div>
+          <Footer />
         </Providers>
       </body>
     </html>

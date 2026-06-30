@@ -129,6 +129,8 @@ function SearchPageInner() {
               title={item.title ?? item.name ?? ""}
               posterPath={item.poster_path}
               voteAverage={item.vote_average}
+              overview={item.overview}
+              year={(item.release_date || item.first_air_date)?.slice(0, 4)}
               index={i}
             />
           ))}
